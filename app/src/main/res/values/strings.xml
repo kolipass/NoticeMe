@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">NoticeMe</string>
     <string name="title_activity_point_selector">PointSelector</string>
+    <string name="autors">Reyngardt Aleksey</string>
 </resources>
