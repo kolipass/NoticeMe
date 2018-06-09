@@ -1,4 +1,4 @@
 # NoticeMe
 
 ##Authors
-- Reyngardt Aleksey
+- alex_shargun
