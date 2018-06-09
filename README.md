@@ -1,4 +1,4 @@
 # NoticeMe
 
 ##Authors
-- Noname
+- alex_shargun

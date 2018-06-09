@@ -28,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:text="add your name here"/>
+        tools:text="Alex Shargun\n"/>
 
     <TextView
         android:id="@+id/footer"
