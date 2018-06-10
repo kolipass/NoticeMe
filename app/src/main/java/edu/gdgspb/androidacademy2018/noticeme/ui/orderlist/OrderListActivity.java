@@ -1,8 +1,8 @@
 package edu.gdgspb.androidacademy2018.noticeme.ui.orderlist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,10 +18,10 @@ import java.util.Date;
 import java.util.List;
 
 import edu.gdgspb.androidacademy2018.noticeme.R;
+import edu.gdgspb.androidacademy2018.noticeme.ui.OrderCreateActivity;
 
 
 public class OrderListActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private OrderListAdapter adapter;
     private Toolbar toolbar;
@@ -81,8 +81,10 @@ public class OrderListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
+                //        .setAction("Action", null).show();
+                Intent intent = new Intent(OrderListActivity.this, OrderCreateActivity.class);
+                startActivity(new Intent(intent));
             }
         });
     }
