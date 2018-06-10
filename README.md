@@ -1,5 +1,4 @@
 # NoticeMe
 
 ##Authors
-- alex_shargun
-- aleksey_reyngardt
+Branch of alex_shargun
