@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editText_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Напоминание № "
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="40dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Text_date_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:text="Дата создания заявки: " />
+
+        <EditText
+            android:id="@+id/editText_date_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:text="1528634836" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Text_date_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Дата жизни заявки: "></TextView>
+
+        <EditText
+            android:id="@+id/editText_date_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:text="1528634936" />
+    </LinearLayout>
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Text_date_run"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Дата запуска заявки: "></TextView>
+
+        <EditText
+            android:id="@+id/editText_date_run"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:text="1528634936" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Text_longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude: "></TextView>
+
+        <EditText
+            android:id="@+id/editText_longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="59.974320" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Text_latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude: "></TextView>
+
+        <EditText
+            android:id="@+id/editText_latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30.336800" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Text_canceled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Заявка отменена: "></TextView>
+
+        <CheckBox
+            android:id="@+id/canceled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="Button" />
+
+
+</LinearLayout>
