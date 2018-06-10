@@ -48,13 +48,13 @@ public class PointSelectorActivity extends FragmentActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng spb = new LatLng(60, 30);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(spb));
+        LatLng spb = new LatLng(59.92978, 30.32240);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spb, 10f));
+        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(spb, 10f));
         setMapLongClick(mMap);
         enableMyLocation();
 
         mMap.setOnCircleClickListener(new GoogleMap.OnCircleClickListener() {
-
             @Override
             public void onCircleClick(Circle circle) {
                 openOrderCreateActivity();
@@ -155,6 +155,7 @@ public class PointSelectorActivity extends FragmentActivity implements OnMapRead
         intent.putExtra(LATITUDE, latitude);
         intent.putExtra(LONGITUDE, longitude);
         intent.putExtra(RADIUS, radius);
+        //здесь строчка с weather/location
         startActivity(intent);
     }
 }
