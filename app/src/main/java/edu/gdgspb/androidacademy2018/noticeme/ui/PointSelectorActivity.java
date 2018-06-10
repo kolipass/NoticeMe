@@ -1,4 +1,4 @@
-package edu.gdgspb.androidacademy2018.noticeme;
+package edu.gdgspb.androidacademy2018.noticeme.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -9,6 +9,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import edu.gdgspb.androidacademy2018.noticeme.R;
 
 public class PointSelectorActivity extends FragmentActivity implements OnMapReadyCallback {
 
