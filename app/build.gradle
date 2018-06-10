@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "YANDEX_WEATHER_KEY", "\"62d68713-bbaf-428e-bb4c-4a557fcb2a8d\""
+        buildConfigField "String", "YANDEX_WEATHER_BASE_URL", "\"https://api.weather.yandex.ru/v1/\""
     }
     buildTypes {
         release {
@@ -29,9 +31,13 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'android.arch.persistence.room:runtime:1.0.0'
-        
+
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
-    
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
