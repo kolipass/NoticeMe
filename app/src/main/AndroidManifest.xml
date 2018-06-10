@@ -30,7 +30,7 @@
             android:value="@string/google_maps_key"/>
 
         <activity
-            android:name=".ui.PointSelectorActivity"
+            android:name=".ui.map.PointSelectorActivity"
             android:label="@string/title_activity_point_selector">
         </activity>
 
