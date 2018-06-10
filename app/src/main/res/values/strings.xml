@@ -10,4 +10,6 @@
     <string name="dropped_pin">Your marker</string>
     <string name="cancel">Cancel</string>
     <string name="set">Set</string>
+    <string name="fab_location_txt">Choose from location</string>
+    <string name="fab_weather_txt">Choose from weather</string>
 </resources>
