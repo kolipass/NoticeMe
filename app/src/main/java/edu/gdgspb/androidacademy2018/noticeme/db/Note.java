@@ -1,5 +1,6 @@
 package edu.gdgspb.androidacademy2018.noticeme.db;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -10,19 +11,33 @@ public class Note {
     private int id;
 
     private String title;
-    //дата создания заявки
-    private Long date_create;
-    //дата жизни. По этому параметру main сервис смотрит жив сервис заявки или нет
-    private Long date_life;
-    //дата когда заявка выполнилась
-    private Long date_run;
-    //флаг отмены пользователем
+
+    /**
+     * дата создания заявки пользователем
+     */
+    @ColumnInfo(name = "date_create")
+    private Long dateCreate;
+    /**
+     * дата последнего просмотра заявки second сервисом. По этому параметру main сервис смотрит жив second сервис или нет
+     */
+    @ColumnInfo(name = "date_life")
+    private Long dateLife;
+    /**
+     * Дата выполнения заявки сервисом
+     */
+    //
+    @ColumnInfo(name = "date_run")
+    private Long dateRun;
+    /**
+     * флаг отмены заявки пользователем
+     */
+    //
     private boolean canceled;
-    //долгота
-    private Long longitude;
-    //широта
-    private Long latitude;
-    private int id_work_manager;
+    private Double longitude;
+    private Double latitude;
+
+    @ColumnInfo(name = "id_work_Manager")
+    private int idWorkManager;
 
     public int getId() {
         return id;
@@ -40,20 +55,20 @@ public class Note {
         this.title = title;
     }
 
-    public Long getDate_life() {
-        return date_life;
+    public Long getDateLife() {
+        return dateLife;
     }
 
-    public void setDate_life(Long date_life) {
-        this.date_life = date_life;
+    public void setDateLife(Long dateLife) {
+        this.dateLife = dateLife;
     }
 
-    public Long getDate_run() {
-        return date_run;
+    public Long getDateRun() {
+        return dateRun;
     }
 
-    public void setDate_run(Long date_run) {
-        this.date_run = date_run;
+    public void setDateRun(Long dateRun) {
+        this.dateRun = dateRun;
     }
 
     public boolean isCanceled() {
@@ -64,35 +79,35 @@ public class Note {
         this.canceled = canceled;
     }
 
-    public int getId_work_manager() {
-        return id_work_manager;
+    public int getIdWorkManager() {
+        return idWorkManager;
     }
 
-    public void setId_work_manager(int id_work_manager) {
-        this.id_work_manager = id_work_manager;
+    public void setIdWorkManager(int idWorkManager) {
+        this.idWorkManager = idWorkManager;
     }
 
-    public Long getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public Long getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public Long getDate_create() {
-        return date_create;
+    public Long getDateCreate() {
+        return dateCreate;
     }
 
-    public void setDate_create(Long date_create) {
-        this.date_create = date_create;
+    public void setDateCreate(Long dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }
