@@ -3,4 +3,6 @@
     <string name="title_activity_point_selector">PointSelector</string>
     <string name="autors">Reyngardt Aleksey</string>
     <string name="dropped_pin">Your marker</string>
+    <string name="cancel">Cancel</string>
+    <string name="set">Set</string>
 </resources>
