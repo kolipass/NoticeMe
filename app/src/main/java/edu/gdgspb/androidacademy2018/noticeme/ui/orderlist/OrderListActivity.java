@@ -1,5 +1,6 @@
 package edu.gdgspb.androidacademy2018.noticeme.ui.orderlist;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,19 +14,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import edu.gdgspb.androidacademy2018.noticeme.OrdersRepository;
 import edu.gdgspb.androidacademy2018.noticeme.R;
+import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
+import edu.gdgspb.androidacademy2018.noticeme.ui.AboutActivity;
 import edu.gdgspb.androidacademy2018.noticeme.ui.OrderCreateActivity;
 
 
-public class OrderListActivity extends AppCompatActivity {
+public class OrderListActivity extends AppCompatActivity implements OrderListActivityCallback {
     private RecyclerView recyclerView;
     private OrderListAdapter adapter;
     private Toolbar toolbar;
     private FloatingActionButton fab;
+    private AppDatabase db;
+    private OrderListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,30 +39,23 @@ public class OrderListActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         fab = findViewById(R.id.fab);
 
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "notes.db").build();
+
         makeToolbar();
         makeFab();
 
+        presenter = new OrderListPresenter(new OrdersRepository(db), this);
         adapter = new OrderListAdapter();
         recyclerView.setClipToPadding(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        adapter.update(getData());
     }
 
-    private List<OrderListData> getData() {
-        List<OrderListData> orders = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            Boolean isActual = i % 2 == 0;
-            String orderName = "Заявка " + i;
-            OrderListData order = new OrderListData(
-                    orderName,
-                    new Date(),
-                    isActual
-            );
-            orders.add(order);
-        }
-        return orders;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getData();
     }
 
     private void makeFab() {
@@ -106,9 +103,16 @@ public class OrderListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.about:
+                startActivity(new Intent(OrderListActivity.this, AboutActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    @Override
+    public void showOrders(List<OrderListData> orders) {
+        adapter.update(orders);
     }
 }

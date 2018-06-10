@@ -7,7 +7,7 @@ public class OrderListData {
     private Date orderDate;
     private Boolean isActual;
 
-    OrderListData(String orderName, Date orderDate, Boolean isActual) {
+    public OrderListData(String orderName, Date orderDate, Boolean isActual) {
         this.orderName = orderName;
         this.orderDate = orderDate;
         this.isActual = isActual;
