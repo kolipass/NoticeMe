@@ -13,14 +13,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
 import java.util.List;
-
 import edu.gdgspb.androidacademy2018.noticeme.OrdersRepository;
 import edu.gdgspb.androidacademy2018.noticeme.R;
 import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
 import edu.gdgspb.androidacademy2018.noticeme.ui.AboutActivity;
-import edu.gdgspb.androidacademy2018.noticeme.ui.OrderCreateActivity;
+import edu.gdgspb.androidacademy2018.noticeme.ui.map.PointSelectorActivity;
 
 
 public class OrderListActivity extends AppCompatActivity implements OrderListActivityCallback {
@@ -80,7 +78,7 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
                 //        .setAction("Action", null).show();
-                Intent intent = new Intent(OrderListActivity.this, OrderCreateActivity.class);
+                Intent intent = new Intent(OrderListActivity.this, PointSelectorActivity.class);
                 startActivity(new Intent(intent));
             }
         });

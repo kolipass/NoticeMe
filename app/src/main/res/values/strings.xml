@@ -7,4 +7,7 @@
     <string name="orders">Orders</string>
     <string name="autors_title">Autors:</string>
     <string name="autors">Alex Shargun\nFedor Ryzhkov\nAleksey Reyngardt</string>
+    <string name="dropped_pin">Your marker</string>
+    <string name="cancel">Cancel</string>
+    <string name="set">Set</string>
 </resources>
