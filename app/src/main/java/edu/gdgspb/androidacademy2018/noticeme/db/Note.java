@@ -110,4 +110,10 @@ public class Note {
     public void setDateCreate(Long dateCreate) {
         this.dateCreate = dateCreate;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        final Note note = (Note) obj;
+        return this.id == note.id;
+    }
 }

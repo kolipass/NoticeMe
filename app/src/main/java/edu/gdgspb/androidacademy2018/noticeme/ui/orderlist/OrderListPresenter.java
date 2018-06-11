@@ -3,8 +3,10 @@ package edu.gdgspb.androidacademy2018.noticeme.ui.orderlist;
 import java.util.List;
 
 import edu.gdgspb.androidacademy2018.noticeme.OrdersRepository;
+import edu.gdgspb.androidacademy2018.noticeme.Utils;
+import edu.gdgspb.androidacademy2018.noticeme.db.Note;
 
-public class OrderListPresenter implements OrderFetchListener {
+public class OrderListPresenter implements OrderInteractListener {
 
     private OrdersRepository repository;
     private OrderListActivityCallback view;
@@ -25,4 +27,16 @@ public class OrderListPresenter implements OrderFetchListener {
             view.showOrders(orders);
         }
     }
+
+    @Override
+    public void noteDeleted() {
+        if (view != null) {
+            view.showDeletedSnackBar();
+        }
+    }
+        public void delete (int noteId) {
+            Note note = new Note();
+            note.setId(noteId);
+            repository.delete(note);
+        }
 }

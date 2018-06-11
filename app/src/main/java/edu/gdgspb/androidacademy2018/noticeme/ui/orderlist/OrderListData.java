@@ -5,12 +5,14 @@ import java.util.Date;
 public class OrderListData {
     private String orderName;
     private Date orderDate;
-    private Boolean isActual;
+    private boolean isActual;
+    private int noteId;
 
-    public OrderListData(String orderName, Date orderDate, Boolean isActual) {
+    public OrderListData(String orderName, Date orderDate, boolean isActual, int noteId) {
         this.orderName = orderName;
         this.orderDate = orderDate;
         this.isActual = isActual;
+        this.noteId = noteId;
     }
 
     public String getOrderName() {
@@ -29,11 +31,15 @@ public class OrderListData {
         this.orderDate = orderDate;
     }
 
-    public Boolean isActual() {
+    public boolean isActual() {
         return isActual;
     }
 
-    public void setActual(Boolean actual) {
+    public void setActual(boolean actual) {
         isActual = actual;
+    }
+
+    public int getNoteId() {
+        return noteId;
     }
 }
