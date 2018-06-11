@@ -78,7 +78,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/Text_longitude"
+            android:id="@+id/tv_longitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Longitude: "></TextView>
@@ -96,7 +96,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/Text_latitude"
+            android:id="@+id/tv_latitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Latitude: "></TextView>

@@ -12,4 +12,45 @@
     <string name="set">Set</string>
     <string name="fab_location_txt">Choose from location</string>
     <string name="fab_weather_txt">Choose from weather</string>
+    <string name="weather_event_type_title">Choose weather event type</string>
+    <string name="stop_tracking">Stop tracking</string>
+    <string name="save_order">Save order</string>
+    <string name="input_order_name_hint">Input order name</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+
+    <string-array name="weather_type">
+        <item>Wind speed</item>
+        <item>Wind direction</item>
+        <item>Condition</item>
+        <item>Moon phase</item>
+    </string-array>
+
+    <string-array name="wind_direction_type">
+        <item>nw</item>
+        <item>n</item>
+        <item>ne</item>
+        <item>e</item>
+        <item>se</item>
+        <item>s</item>
+        <item>sw</item>
+        <item>w</item>
+    </string-array>
+
+    <string-array name="condition_type">
+        <item>clear</item>
+        <item>overcast</item>
+        <item>partly-cloudy-and-rain</item>
+        <item>partly-cloudy-and-snow</item>
+    </string-array>
+
+    <string-array name="moon_type">
+        <item>full-moon</item>
+        <item>decreasing-moon</item>
+        <item>last-quarter</item>
+        <item>new-moon</item>
+        <item>growing-moon</item>
+        <item>first-quarter</item>
+    </string-array>
+
 </resources>
