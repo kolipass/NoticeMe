@@ -50,7 +50,6 @@ public class PointSelectorActivity extends FragmentActivity implements OnMapRead
         mMap = googleMap;
         LatLng spb = new LatLng(59.92978, 30.32240);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(spb, 10f));
-        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(spb, 10f));
         setMapLongClick(mMap);
         enableMyLocation();
 
