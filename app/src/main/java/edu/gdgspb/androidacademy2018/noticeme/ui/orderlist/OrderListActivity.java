@@ -3,7 +3,6 @@ package edu.gdgspb.androidacademy2018.noticeme.ui.orderlist;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import java.util.List;
+
+import edu.gdgspb.androidacademy2018.noticeme.OrderType;
 import edu.gdgspb.androidacademy2018.noticeme.OrdersRepository;
 import edu.gdgspb.androidacademy2018.noticeme.R;
 import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
@@ -22,10 +27,12 @@ import edu.gdgspb.androidacademy2018.noticeme.ui.map.PointSelectorActivity;
 
 
 public class OrderListActivity extends AppCompatActivity implements OrderListActivityCallback {
+    public static final String CHOOSEN_ORDER_TYPE = "choosen_order_type";
     private RecyclerView recyclerView;
     private OrderListAdapter adapter;
     private Toolbar toolbar;
-    private FloatingActionButton fab;
+    private FloatingActionsMenu menuMultipleActions;
+    private FloatingActionButton weatherFab, locationFab;
     private AppDatabase db;
     private OrderListPresenter presenter;
 
@@ -35,7 +42,9 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
         setContentView(R.layout.activity_order_list);
         recyclerView = findViewById(R.id.recycler_view);
         toolbar = findViewById(R.id.toolbar);
-        fab = findViewById(R.id.fab);
+        menuMultipleActions = findViewById(R.id.multiple_actions);
+        weatherFab = findViewById(R.id.action_weather);
+        locationFab = findViewById(R.id.action_location);
 
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "notes.db").build();
@@ -60,25 +69,33 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0 || dy < 0 && fab.isShown())
-                    fab.hide();
+                if (dy > 0 || dy < 0 && menuMultipleActions.isShown()) {
+                    menuMultipleActions.setVisibility(View.GONE);
+                }
             }
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    fab.show();
+                    menuMultipleActions.setVisibility(View.VISIBLE);
                 }
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-        fab.setOnClickListener(new View.OnClickListener() {
+        final Intent intent = new Intent(OrderListActivity.this, PointSelectorActivity.class);
+
+        locationFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_SHORT)
-                //        .setAction("Action", null).show();
-                Intent intent = new Intent(OrderListActivity.this, PointSelectorActivity.class);
+                intent.putExtra(CHOOSEN_ORDER_TYPE, OrderType.LOCATION);
+                startActivity(new Intent(intent));
+            }
+        });
+        weatherFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent.putExtra(CHOOSEN_ORDER_TYPE, OrderType.WEATHER);
                 startActivity(new Intent(intent));
             }
         });
@@ -107,7 +124,6 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     @Override
     public void showOrders(List<OrderListData> orders) {
