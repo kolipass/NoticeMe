@@ -22,8 +22,11 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Locale;
+
+import edu.gdgspb.androidacademy2018.noticeme.OrderType;
 import edu.gdgspb.androidacademy2018.noticeme.R;
 import edu.gdgspb.androidacademy2018.noticeme.ui.OrderCreateActivity;
+import edu.gdgspb.androidacademy2018.noticeme.ui.orderlist.OrderListActivity;
 
 public class PointSelectorActivity extends FragmentActivity implements OnMapReadyCallback {
     public static final String LATITUDE = "latitude";
@@ -34,11 +37,13 @@ public class PointSelectorActivity extends FragmentActivity implements OnMapRead
     public int radius = 0;
     private double latitude;
     private double longitude;
+    private OrderType orderType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_selector);
+        orderType = (OrderType) getIntent().getSerializableExtra(OrderListActivity.CHOOSEN_ORDER_TYPE);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -154,7 +159,7 @@ public class PointSelectorActivity extends FragmentActivity implements OnMapRead
         intent.putExtra(LATITUDE, latitude);
         intent.putExtra(LONGITUDE, longitude);
         intent.putExtra(RADIUS, radius);
-        //здесь строчка с weather/location
+        intent.putExtra(OrderListActivity.CHOOSEN_ORDER_TYPE, orderType);
         startActivity(intent);
     }
 }
