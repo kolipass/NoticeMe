@@ -72,6 +72,20 @@ public class OrderCreateActivity extends Activity {
     public void onClick(View view) {
         //Добавим строку в БД
         onAddNoteBtnClick();
+
+    }
+
+    private void onAddNoteBtnClick() {
+        Note note = createNote(title.getText().toString(),
+                currentTime.getTime(),
+                0,
+                0,
+                iscanceled.isChecked(),
+                Double.parseDouble(latitudeEt.getText().toString()),
+                Double.parseDouble(longitudeEt.getText().toString()));
+
+        long idTask = AppDatabase.getInstance(this).noteDao().insert(note);
+        Log.d("myTag", "onAddNoteBtnClick:  idTask = " + idTask);
         // выводим сообщение
         Toast.makeText(this, "Добавил элемент в базу данных", Toast.LENGTH_SHORT).show();
 
@@ -80,19 +94,9 @@ public class OrderCreateActivity extends Activity {
         myIntent.putExtra("latitude", latitude);
         myIntent.putExtra("longitude", longitude);
         myIntent.putExtra("radius", radius);
+        myIntent.putExtra("idTask", idTask );
         startService(myIntent);
-    }
 
-    private void onAddNoteBtnClick() {
-        Note note = createNote(title.getText().toString(),
-                currentTime.getTime(),
-                Long.parseLong(dateOfLife.getText().toString()),
-                Long.parseLong(dateOfRun.getText().toString()),
-                iscanceled.isChecked(),
-                Double.parseDouble(latitudeEt.getText().toString()),
-                Double.parseDouble(longitudeEt.getText().toString()));
-
-        AppDatabase.getInstance(this).noteDao().insert(note);
         Intent intent = new Intent(this, OrderListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

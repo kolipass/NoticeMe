@@ -21,6 +21,12 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
+import edu.gdgspb.androidacademy2018.noticeme.db.Note;
+
 public class CheckLocationService extends Service implements LocationListener {
     // Идентификатор уведомления
     private static final int NOTIFY_ID = 101;
@@ -44,7 +50,7 @@ public class CheckLocationService extends Service implements LocationListener {
     private double latitudeTask;
     private double longitudeTask;
     private double radiusTask;
-
+    private long idTask;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -53,7 +59,9 @@ public class CheckLocationService extends Service implements LocationListener {
         latitudeTask = extras.getDouble("latitude");
         longitudeTask = extras.getDouble("longitude");
         radiusTask = extras.getDouble("radius");
+        idTask = extras.getLong("idTask");
 
+        Log.d("myTag", "onStartCommand: idTask =  " + idTask);
         //Текущее местоположение
         LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
@@ -86,7 +94,7 @@ public class CheckLocationService extends Service implements LocationListener {
         notificationManager.notify(NOTIFY_ID, builder.build());
     }
 
-    public Location getLocation() {
+    private Location getLocation() {
         try {
             locationManager = (LocationManager) this
                     .getSystemService(LOCATION_SERVICE);
@@ -154,6 +162,13 @@ public class CheckLocationService extends Service implements LocationListener {
         //Если все ОК, то завершаем
         if (verifier.isInArea(longitude, latitude)) {
             sendNotification();
+            locationManager.removeUpdates(this);
+
+            Note note = AppDatabase.getInstance(this).noteDao().getNoteById(idTask);
+            note.setDateLife(Calendar.getInstance().getTime().getTime());
+            note.setDateRun(Calendar.getInstance().getTime().getTime());
+
+            AppDatabase.getInstance(this).noteDao().update(note);
             stopSelf();
             Log.d("myTag", " Завершаем сервис ");
         }
