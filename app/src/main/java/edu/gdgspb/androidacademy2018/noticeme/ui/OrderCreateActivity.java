@@ -35,6 +35,7 @@ public class OrderCreateActivity extends Activity {
     private EditText latitudeEt;
     private CheckBox iscanceled;
     private Date currentTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,40 +63,48 @@ public class OrderCreateActivity extends Activity {
     }
 
     private void getDataFromIntent() {
-            Intent intent = getIntent();
-            latitude = intent.getExtras().getDouble(PointSelectorActivity.LATITUDE);
-            longitude = intent.getExtras().getDouble(PointSelectorActivity.LONGITUDE);
-            radius = intent.getExtras().getInt(PointSelectorActivity.RADIUS);
+        Intent intent = getIntent();
+        latitude = intent.getExtras().getDouble(PointSelectorActivity.LATITUDE);
+        longitude = intent.getExtras().getDouble(PointSelectorActivity.LONGITUDE);
+        radius = intent.getExtras().getInt(PointSelectorActivity.RADIUS);
     }
 
     public void onClick(View view) {
         //Добавим строку в БД
         onAddNoteBtnClick();
-        // выводим сообщение
-        Toast.makeText(this, "Добавил элемент в базу данных", Toast.LENGTH_SHORT).show();
 
-        //Запускаем сервис
-        startService(new Intent(this, CheckLocationService.class));
     }
 
     private void onAddNoteBtnClick() {
         Note note = createNote(title.getText().toString(),
                 currentTime.getTime(),
-                Long.parseLong(dateOfLife.getText().toString()),
-                Long.parseLong(dateOfRun.getText().toString()),
+                0,
+                0,
                 iscanceled.isChecked(),
                 Double.parseDouble(latitudeEt.getText().toString()),
                 Double.parseDouble(longitudeEt.getText().toString()));
 
-        AppDatabase.getInstance(this).noteDao().insert(note);
+        long idTask = AppDatabase.getInstance(this).noteDao().insert(note);
+        Log.d("myTag", "onAddNoteBtnClick:  idTask = " + idTask);
+        // выводим сообщение
+        Toast.makeText(this, "Добавил элемент в базу данных", Toast.LENGTH_SHORT).show();
+
+        //Запускаем сервис
+        Intent myIntent = new Intent(this, CheckLocationService.class);
+        myIntent.putExtra("latitude", latitude);
+        myIntent.putExtra("longitude", longitude);
+        myIntent.putExtra("radius", radius);
+        myIntent.putExtra("idTask", idTask );
+        startService(myIntent);
+
         Intent intent = new Intent(this, OrderListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     @NonNull
-    private Note createNote(String title, Long date_create, Long date_life,
-                            Long date_run, boolean canceled, Double latitude, Double longitude) {
+    private Note createNote(String title, long date_create, long date_life,
+                            long date_run, boolean canceled, double latitude, double longitude) {
         Note note = new Note();
         note.setTitle(title);
         note.setDateCreate(date_create);
