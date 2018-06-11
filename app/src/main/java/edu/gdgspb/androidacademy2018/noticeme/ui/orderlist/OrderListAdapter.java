@@ -24,6 +24,9 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         orders.addAll(orderList);
         notifyDataSetChanged();
     }
+    public OrderListData getOrderItem(int position){
+        return orders.get(position);
+    }
 
     @NonNull
     @Override
@@ -63,5 +66,8 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         }
     }
 
-
+    public void removeAt(Integer position) {
+        orders.remove(position);
+        notifyItemRemoved(position);
+    }
 }

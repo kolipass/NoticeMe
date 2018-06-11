@@ -1,33 +1,42 @@
 package edu.gdgspb.androidacademy2018.noticeme;
 
+import android.content.Context;
 import android.os.AsyncTask;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
 import edu.gdgspb.androidacademy2018.noticeme.db.Note;
-import edu.gdgspb.androidacademy2018.noticeme.ui.orderlist.OrderFetchListener;
+import edu.gdgspb.androidacademy2018.noticeme.ui.orderlist.OrderInteractListener;
 import edu.gdgspb.androidacademy2018.noticeme.ui.orderlist.OrderListData;
 
 public class OrdersRepository {
     private AppDatabase db;
+    private Context context;
 
     public OrdersRepository(AppDatabase db) {
         this.db = db;
     }
 
-    public void getOrders(OrderFetchListener listener) {
-        new FetchOrderAsyncTask(listener, db).execute();
+    public void getOrders(OrderInteractListener listener) {
+        new InteractOrderAsyncTask(listener, db).execute();
     }
 
-    static private class FetchOrderAsyncTask extends AsyncTask<Void, Void, List<Note>> {
-        private OrderFetchListener listener;
+    public void delete(final Note note) {
+        new Thread(){
+            @Override
+            public void run() {
+                db.noteDao().delete(note); //удаление из бд
+            }
+        }.start();
+    }
+
+    static private class InteractOrderAsyncTask extends AsyncTask<Void, Void, List<Note>> {
+        private OrderInteractListener listener;
         private AppDatabase db;
 
-        public FetchOrderAsyncTask(OrderFetchListener orderFetchListener, AppDatabase db) {
-            this.listener = orderFetchListener;
+        public InteractOrderAsyncTask(OrderInteractListener orderInteractListener, AppDatabase db) {
+            this.listener = orderInteractListener;
             this.db = db;
         }
 
@@ -44,11 +53,11 @@ public class OrdersRepository {
                 OrderListData data = new OrderListData(
                         note.getTitle(),
                         new Date(note.getDateCreate()),
-                        !note.isCanceled()
+                        !note.isCanceled(),
+                        note.getId()
                 );
                 orders.add(data);
             }
-
             listener.ordersDownloaded(orders);
         }
     }

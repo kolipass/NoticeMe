@@ -2,12 +2,15 @@ package edu.gdgspb.androidacademy2018.noticeme.ui.orderlist;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,9 +18,7 @@ import android.view.View;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-
 import java.util.List;
-
 import edu.gdgspb.androidacademy2018.noticeme.OrderType;
 import edu.gdgspb.androidacademy2018.noticeme.OrdersRepository;
 import edu.gdgspb.androidacademy2018.noticeme.R;
@@ -48,15 +49,34 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
 
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "notes.db").build();
-
         makeToolbar();
         makeFab();
-
         presenter = new OrderListPresenter(new OrdersRepository(db), this);
         adapter = new OrderListAdapter();
         recyclerView.setClipToPadding(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                presenter.delete(adapter.getOrderItem(viewHolder.getAdapterPosition()).getNoteId());
+                adapter.removeAt(viewHolder.getAdapterPosition());
+                showDeletedSnackBar();
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                // view the background view
+            }
+        };
+        // attaching the touch helper to recycler view
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -76,7 +96,6 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     menuMultipleActions.setVisibility(View.VISIBLE);
                 }
@@ -84,7 +103,6 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
             }
         });
         final Intent intent = new Intent(OrderListActivity.this, PointSelectorActivity.class);
-
         locationFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,5 +146,17 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
     @Override
     public void showOrders(List<OrderListData> orders) {
         adapter.update(orders);
+    }
+
+    @Override
+    public void showDeletedSnackBar() {
+        String message = "Deleted note";
+        showSnackBar(message);
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+        Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show();
     }
 }
