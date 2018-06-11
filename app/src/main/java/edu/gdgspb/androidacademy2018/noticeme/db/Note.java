@@ -36,6 +36,10 @@ public class Note {
     private Double longitude;
     private Double latitude;
 
+    private Boolean isWeather;
+    private int wintSpeed;
+    private String moonPhase;
+
     @ColumnInfo(name = "id_work_Manager")
     private int idWorkManager;
 
@@ -115,5 +119,29 @@ public class Note {
     public boolean equals(Object obj) {
         final Note note = (Note) obj;
         return this.id == note.id;
+    }
+
+    public Boolean getWeather() {
+        return isWeather;
+    }
+
+    public int getWintSpeed() {
+        return wintSpeed;
+    }
+
+    public String getMoonPhase() {
+        return moonPhase;
+    }
+
+    public void setWeather(Boolean weather) {
+        isWeather = weather;
+    }
+
+    public void setWintSpeed(int wintSpeed) {
+        this.wintSpeed = wintSpeed;
+    }
+
+    public void setMoonPhase(String moonPhase) {
+        this.moonPhase = moonPhase;
     }
 }

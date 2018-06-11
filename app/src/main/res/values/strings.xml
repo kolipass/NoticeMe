@@ -21,28 +21,45 @@
 
     <string-array name="weather_type">
         <item>Wind speed</item>
-        <item>Wind direction</item>
-        <item>Condition</item>
+        <!-- <item>Wind direction</item>
+             <item>Condition</item>-->
         <item>Moon phase</item>
     </string-array>
-
-    <string-array name="wind_direction_type">
-        <item>nw</item>
-        <item>n</item>
-        <item>ne</item>
-        <item>e</item>
-        <item>se</item>
-        <item>s</item>
-        <item>sw</item>
-        <item>w</item>
+    <string-array name="wind_speed">
+        <item>More then</item>
+        <item>Less then</item>
     </string-array>
 
-    <string-array name="condition_type">
-        <item>clear</item>
-        <item>overcast</item>
-        <item>partly-cloudy-and-rain</item>
-        <item>partly-cloudy-and-snow</item>
-    </string-array>
+
+    <!-- <string-array name="wind_direction_type">
+         <item>nw</item>
+         <item>n</item>
+         <item>ne</item>
+         <item>e</item>
+         <item>se</item>
+         <item>s</item>
+         <item>sw</item>
+         <item>w</item>
+     </string-array>-->
+    <!--
+        <string-array name="wind_direction_type">
+            <item>nw</item>
+            <item>n</item>
+            <item>ne</item>
+            <item>e</item>
+            <item>se</item>
+            <item>s</item>
+            <item>sw</item>
+            <item>w</item>
+        </string-array>
+    -->
+
+    <!--    <string-array name="condition_type">
+            <item>clear</item>
+            <item>overcast</item>
+            <item>partly-cloudy-and-rain</item>
+            <item>partly-cloudy-and-snow</item>
+        </string-array>-->
 
     <string-array name="moon_type">
         <item>full-moon</item>
@@ -52,5 +69,13 @@
         <item>growing-moon</item>
         <item>first-quarter</item>
     </string-array>
+    <string name="choose_particular_event_title">Choose particular event type</string>
+    <string name="more_then">more then</string>
+    <string name="wind_speed">Wind speed more then</string>
+    <string name="active">Active</string>
+
+    <string name="moon_desc">You will be notified when the moon is in phase</string>
+    <string name="wind_desc">You will be notified when wind speed will be more then</string>
+    <string name="location_desc">You will be notified when you approach the selected place</string>
 
 </resources>

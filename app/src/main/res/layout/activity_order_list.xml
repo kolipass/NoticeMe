@@ -36,7 +36,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:fab_addButtonColorNormal="@color/colorAccent"
-        app:fab_addButtonColorPressed="@color/color_fab_pressed"
+        app:fab_addButtonColorPressed="@color/colorPrimary"
         app:fab_addButtonPlusIconColor="@android:color/white"
         app:fab_labelStyle="@style/menu_label_style"
         app:srcCompat="@drawable/ic_add_white_24dp">
@@ -46,9 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            app:fab_addButtonColorNormal="@color/colorAccent"
             app:fab_icon="@drawable/ic_umbrella_24dp"
-            app:fab_addButtonColorPressed="@color/color_fab_pressed"
             app:fab_title="@string/fab_weather_txt" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -57,8 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             app:fab_icon="@drawable/ic_globe_24dp"
-            app:fab_addButtonColorNormal="@color/colorAccent"
-            app:fab_addButtonColorPressed="@color/color_fab_pressed"
             app:fab_title="@string/fab_location_txt" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

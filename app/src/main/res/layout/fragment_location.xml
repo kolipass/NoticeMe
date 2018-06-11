@@ -23,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@id/editText_Name">
 
         <EditText
-            android:id="@+id/tv_longitude"
+            android:id="@+id/et_longitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/longitude_container">
 
         <EditText
-            android:id="@+id/tv_latitude"
+            android:id="@+id/et_latitude"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -68,6 +68,7 @@
 
 
     <Button
+        android:id="@+id/save_order_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

@@ -2,9 +2,11 @@ package edu.gdgspb.androidacademy2018.noticeme;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
 import edu.gdgspb.androidacademy2018.noticeme.db.Note;
 import edu.gdgspb.androidacademy2018.noticeme.ui.orderlist.OrderInteractListener;
@@ -54,7 +56,10 @@ public class OrdersRepository {
                         note.getTitle(),
                         new Date(note.getDateCreate()),
                         !note.isCanceled(),
-                        note.getId()
+                        note.getId(),
+                        note.getWeather(),
+                        note.getWintSpeed(),
+                        note.getMoonPhase()
                 );
                 orders.add(data);
             }
