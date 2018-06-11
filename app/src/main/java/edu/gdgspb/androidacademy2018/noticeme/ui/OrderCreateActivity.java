@@ -24,6 +24,10 @@ import edu.gdgspb.androidacademy2018.noticeme.ui.map.PointSelectorActivity;
 import edu.gdgspb.androidacademy2018.noticeme.ui.orderlist.OrderListActivity;
 
 public class OrderCreateActivity extends Activity {
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+    public static final String RADIUS = "radius";
+    public static final String ID_TASK = "idTask";
     private double latitude;
     private double longitude;
     private double radius;
@@ -91,13 +95,16 @@ public class OrderCreateActivity extends Activity {
 
         //Запускаем сервис
         Intent myIntent = new Intent(this, CheckLocationService.class);
-        myIntent.putExtra("latitude", latitude);
-        myIntent.putExtra("longitude", longitude);
-        myIntent.putExtra("radius", radius);
-        myIntent.putExtra("idTask", idTask );
+        myIntent.putExtra(LATITUDE, latitude);
+        myIntent.putExtra(LONGITUDE, longitude);
+        myIntent.putExtra(RADIUS, radius);
+        myIntent.putExtra(ID_TASK, idTask);
         startService(myIntent);
 
         Intent intent = new Intent(this, OrderListActivity.class);
+        intent.putExtra(LATITUDE, latitude);
+        intent.putExtra(LONGITUDE, longitude);
+        intent.putExtra(ID_TASK, idTask);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
