@@ -24,10 +24,11 @@ import edu.gdgspb.androidacademy2018.noticeme.OrdersRepository;
 import edu.gdgspb.androidacademy2018.noticeme.R;
 import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
 import edu.gdgspb.androidacademy2018.noticeme.ui.AboutActivity;
+import edu.gdgspb.androidacademy2018.noticeme.ui.OrderCreateActivity;
 import edu.gdgspb.androidacademy2018.noticeme.ui.map.PointSelectorActivity;
 
 
-public class OrderListActivity extends AppCompatActivity implements OrderListActivityCallback {
+public class OrderListActivity extends AppCompatActivity implements OrderListActivityCallback, OrderListAdapter.AdapterItemClickListener {
     public static final String CHOOSEN_ORDER_TYPE = "choosen_order_type";
     private RecyclerView recyclerView;
     private OrderListAdapter adapter;
@@ -36,6 +37,8 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
     private FloatingActionButton weatherFab, locationFab;
     private AppDatabase db;
     private OrderListPresenter presenter;
+    private double latitude;
+    private double longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
         makeToolbar();
         makeFab();
         presenter = new OrderListPresenter(new OrdersRepository(db), this);
-        adapter = new OrderListAdapter();
+        adapter = new OrderListAdapter(this);
         recyclerView.setClipToPadding(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -68,6 +71,7 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
                 presenter.delete(adapter.getOrderItem(viewHolder.getAdapterPosition()).getNoteId());
                 adapter.removeAt(viewHolder.getAdapterPosition());
                 showDeletedSnackBar();
+                presenter.getData();
             }
 
             @Override
@@ -158,5 +162,20 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
     public void showSnackBar(String message) {
         Snackbar.make(recyclerView, message, Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show();
+    }
+
+    public void openOrderActivity() {
+        Intent intent = getIntent();
+        latitude = intent.getExtras().getDouble(PointSelectorActivity.LATITUDE);
+        longitude = intent.getExtras().getDouble(PointSelectorActivity.LONGITUDE);
+        Intent newIntent = new Intent(this, OrderCreateActivity.class);
+        newIntent.putExtra(PointSelectorActivity.LATITUDE, latitude);
+        newIntent.putExtra(PointSelectorActivity.LONGITUDE, longitude);
+        startActivity(newIntent);
+    }
+
+    @Override
+    public void onViewHolderClick(int idNote) {
+        openOrderActivity();
     }
 }
