@@ -35,6 +35,7 @@ public class OrderCreateActivity extends Activity {
     private EditText latitudeEt;
     private CheckBox iscanceled;
     private Date currentTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +63,10 @@ public class OrderCreateActivity extends Activity {
     }
 
     private void getDataFromIntent() {
-            Intent intent = getIntent();
-            latitude = intent.getExtras().getDouble(PointSelectorActivity.LATITUDE);
-            longitude = intent.getExtras().getDouble(PointSelectorActivity.LONGITUDE);
-            radius = intent.getExtras().getInt(PointSelectorActivity.RADIUS);
+        Intent intent = getIntent();
+        latitude = intent.getExtras().getDouble(PointSelectorActivity.LATITUDE);
+        longitude = intent.getExtras().getDouble(PointSelectorActivity.LONGITUDE);
+        radius = intent.getExtras().getInt(PointSelectorActivity.RADIUS);
     }
 
     public void onClick(View view) {
@@ -75,7 +76,11 @@ public class OrderCreateActivity extends Activity {
         Toast.makeText(this, "Добавил элемент в базу данных", Toast.LENGTH_SHORT).show();
 
         //Запускаем сервис
-        startService(new Intent(this, CheckLocationService.class));
+        Intent myIntent = new Intent(this, CheckLocationService.class);
+        myIntent.putExtra("latitude", latitude);
+        myIntent.putExtra("longitude", longitude);
+        myIntent.putExtra("radius", radius);
+        startService(myIntent);
     }
 
     private void onAddNoteBtnClick() {
@@ -94,8 +99,8 @@ public class OrderCreateActivity extends Activity {
     }
 
     @NonNull
-    private Note createNote(String title, Long date_create, Long date_life,
-                            Long date_run, boolean canceled, Double latitude, Double longitude) {
+    private Note createNote(String title, long date_create, long date_life,
+                            long date_run, boolean canceled, double latitude, double longitude) {
         Note note = new Note();
         note.setTitle(title);
         note.setDateCreate(date_create);

@@ -2,9 +2,9 @@ package edu.gdgspb.androidacademy2018.noticeme;
 
 public class AreaIncludesVerifier {
     private Double longitudeCurrent, latitudeCurrent;
-    private Integer radius;
+    private Double radius;
 
-    public AreaIncludesVerifier(Double longitude, Double latitude, Integer radius) {
+    public AreaIncludesVerifier(Double longitude, Double latitude, Double radius) {
         this.longitudeCurrent = longitude;
         this.latitudeCurrent = latitude;
         this.radius = radius;
