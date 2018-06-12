@@ -18,18 +18,21 @@ import android.view.View;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import java.util.List;
+
 import edu.gdgspb.androidacademy2018.noticeme.OrderType;
 import edu.gdgspb.androidacademy2018.noticeme.OrdersRepository;
 import edu.gdgspb.androidacademy2018.noticeme.R;
 import edu.gdgspb.androidacademy2018.noticeme.db.AppDatabase;
 import edu.gdgspb.androidacademy2018.noticeme.ui.AboutActivity;
-import edu.gdgspb.androidacademy2018.noticeme.ui.OrderCreateActivity;
 import edu.gdgspb.androidacademy2018.noticeme.ui.map.PointSelectorActivity;
+import edu.gdgspb.androidacademy2018.noticeme.ui.order_create.OrderCreateActivity;
 
 
 public class OrderListActivity extends AppCompatActivity implements OrderListActivityCallback, OrderListAdapter.AdapterItemClickListener {
     public static final String CHOOSEN_ORDER_TYPE = "choosen_order_type";
+    public static final String NOTE_ID = "note_id";
     private RecyclerView recyclerView;
     private OrderListAdapter adapter;
     private Toolbar toolbar;
@@ -71,7 +74,6 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
                 presenter.delete(adapter.getOrderItem(viewHolder.getAdapterPosition()).getNoteId());
                 adapter.removeAt(viewHolder.getAdapterPosition());
                 showDeletedSnackBar();
-                presenter.getData();
             }
 
             @Override
@@ -164,11 +166,15 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
                 .setAction("Action", null).show();
     }
 
-    public void openOrderActivity() {
+    public void openOrderActivity(int noteId) {
         Intent intent = getIntent();
-        latitude = intent.getExtras().getDouble(PointSelectorActivity.LATITUDE);
-        longitude = intent.getExtras().getDouble(PointSelectorActivity.LONGITUDE);
+        try {
+            latitude = intent.getExtras().getDouble(PointSelectorActivity.LATITUDE);
+            longitude = intent.getExtras().getDouble(PointSelectorActivity.LONGITUDE);
+        } catch (Exception ignored) {
+        }
         Intent newIntent = new Intent(this, OrderCreateActivity.class);
+        newIntent.putExtra(OrderListActivity.NOTE_ID, noteId);
         newIntent.putExtra(PointSelectorActivity.LATITUDE, latitude);
         newIntent.putExtra(PointSelectorActivity.LONGITUDE, longitude);
         startActivity(newIntent);
@@ -176,6 +182,6 @@ public class OrderListActivity extends AppCompatActivity implements OrderListAct
 
     @Override
     public void onViewHolderClick(int idNote) {
-        openOrderActivity();
+        openOrderActivity(idNote);
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,13 +43,28 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull OrderListAdapter.ViewHolder holder, final int position) {
-        final OrderListData item = orders.get(position);
         final Context context = holder.orderName.getContext();
+        final OrderListData item = orders.get(position);
+        String description;
+        if (item.isWeather()) {
+            holder.orderIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_umbrella_24dp));
+            if (item.getMoonPhase() != null) {
+                description = context.getString(R.string.moon_desc) + " " + item.getMoonPhase();
+            } else {
+                description = context.getString(R.string.wind_desc) + " " + item.getWindSpeed() + " m/s";
+            }
+        } else {
+            description = context.getString(R.string.location_desc);
+            holder.orderIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_globe_24dp));
+        }
+        holder.descriptionTv.setText(description);
         holder.orderName.setText(item.getOrderName());
         holder.orderDate.setText(Utils.getStringByDate(item.getOrderDate()));
         if (item.isActual()) {
+            holder.activeTv.setVisibility(View.VISIBLE);
             holder.orderCard.setBackgroundColor(ContextCompat.getColor(context, R.color.green));
         } else {
+            holder.activeTv.setVisibility(View.INVISIBLE);
             holder.orderCard.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
         }
     }
@@ -62,13 +78,19 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
         private TextView orderName;
         private TextView orderDate;
         private ConstraintLayout orderCard;
-        private AdapterItemClickListener listener;
+        private AppCompatImageView orderIcon;
+        private TextView descriptionTv;
+        private TextView activeTv;
+        final private AdapterItemClickListener listener;
 
         ViewHolder(View itemView, final AdapterItemClickListener listener) {
             super(itemView);
             orderName = itemView.findViewById(R.id.order_name);
             orderDate = itemView.findViewById(R.id.order_date);
             orderCard = itemView.findViewById(R.id.card);
+            orderIcon = itemView.findViewById(R.id.order_icon);
+            descriptionTv = itemView.findViewById(R.id.description);
+            activeTv = itemView.findViewById(R.id.active);
             this.listener = listener;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -38,7 +38,7 @@
         <activity android:name=".ui.AboutActivity" />
 
         <activity
-            android:name=".ui.OrderCreateActivity"
+            android:name=".ui.order_create.OrderCreateActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".ui.orderlist.OrderListActivity"

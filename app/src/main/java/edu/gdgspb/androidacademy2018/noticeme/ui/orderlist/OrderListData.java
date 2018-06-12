@@ -7,12 +7,19 @@ public class OrderListData {
     private Date orderDate;
     private boolean isActual;
     private int noteId;
+    private boolean isWeather;
+    private int windSpeed;
+    private String moonPhase;
 
-    public OrderListData(String orderName, Date orderDate, boolean isActual, int noteId) {
+    public OrderListData(String orderName, Date orderDate, boolean isActual, int noteId, boolean isWeather,
+                         int windSpeed, String moonPhase) {
         this.orderName = orderName;
         this.orderDate = orderDate;
         this.isActual = isActual;
         this.noteId = noteId;
+        this.isWeather = isWeather;
+        this.windSpeed = windSpeed;
+        this.moonPhase = moonPhase;
     }
 
     public String getOrderName() {
@@ -41,5 +48,29 @@ public class OrderListData {
 
     public int getNoteId() {
         return noteId;
+    }
+
+    public boolean isWeather() {
+        return isWeather;
+    }
+
+    public void setWeather(boolean weather) {
+        isWeather = weather;
+    }
+
+    public int getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(int windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public String getMoonPhase() {
+        return moonPhase;
+    }
+
+    public void setMoonPhase(String moonPhase) {
+        this.moonPhase = moonPhase;
     }
 }
